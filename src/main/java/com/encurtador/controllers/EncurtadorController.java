@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/")
@@ -16,7 +17,7 @@ public class EncurtadorController {
     EncurtadorService service;
 
     @PostMapping
-    public Encurtador save(@RequestBody @Valid EncurtadorDto dto){
+    public Encurtador save(@RequestBody @Valid EncurtadorDto dto) throws IOException {
         return service.save(dto);
     }
 

@@ -6,13 +6,15 @@ import com.encurtador.repositories.EncurtadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 @Service
 public class EncurtadorService {
 
     @Autowired
     EncurtadorRepository repository;
 
-    public Encurtador save(EncurtadorDto dto){
+    public Encurtador save(EncurtadorDto dto) throws IOException {
         Encurtador encurtador = Encurtador.Builder.fromDto(dto);
         return repository.save(encurtador);
     }

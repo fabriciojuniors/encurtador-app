@@ -5,7 +5,13 @@ import com.encurtador.utils.Criptografia;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.parser.ParserDelegator;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -122,7 +128,7 @@ public class Encurtador implements Serializable {
 
     public static class Builder {
 
-        public static Encurtador fromDto(EncurtadorDto dto){
+        public static Encurtador fromDto(EncurtadorDto dto) throws IOException {
             return new Encurtador(0, dto.getUrl(), getTitle(dto.getUrl()), encodeURL(dto.getUrl()));
         }
 
@@ -132,8 +138,15 @@ public class Encurtador implements Serializable {
             return encodedURL;
         }
 
-        private static String getTitle(String url){
-            return "";
+        private static String getTitle(String url) throws IOException {
+            HTMLEditorKit htmlKit = new HTMLEditorKit();
+            HTMLDocument htmlDoc = (HTMLDocument) htmlKit.createDefaultDocument();
+            HTMLEditorKit.Parser parser = new ParserDelegator();
+            parser.parse(new InputStreamReader(new java.net.URL(url).openStream()),
+                    htmlDoc.getReader(0), true);
+
+            return (String) htmlDoc.getProperty("title");
+
         }
 
     }
