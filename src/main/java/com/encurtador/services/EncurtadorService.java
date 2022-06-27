@@ -20,7 +20,12 @@ public class EncurtadorService {
     }
 
     public Encurtador findByEncodedURL(String encodedURL){
-        return repository.findByEncodedURL(encodedURL).orElseThrow(() -> new RuntimeException("URL não encontrada"));
+        Encurtador encurtador = repository.findByEncodedURL(encodedURL).orElseThrow(() -> new RuntimeException("URL não encontrada"));
+
+        encurtador.incrementViews();
+        repository.save(encurtador);
+
+        return encurtador;
     }
 
 }

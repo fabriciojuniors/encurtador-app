@@ -40,6 +40,9 @@ public class Encurtador implements Serializable {
     @Column(name = "update_at")
     private LocalDateTime updatedAt;
 
+    @Column
+    private long views;
+
     public Encurtador(long id, String URL, String title, String encodedURL, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.URL = URL;
@@ -55,6 +58,7 @@ public class Encurtador implements Serializable {
         this.title = title;
         this.encodedURL = encodedURL;
         this.createdAt = LocalDateTime.now();
+        this.views = 0;
     }
 
     public Encurtador() {
@@ -106,6 +110,18 @@ public class Encurtador implements Serializable {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public long getViews() {
+        return views;
+    }
+
+    public void setViews(long views) {
+        this.views = views;
+    }
+
+    public void incrementViews(){
+        this.views++;
     }
 
     @Override
