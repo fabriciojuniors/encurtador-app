@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class EncurtadorService {
@@ -26,6 +27,10 @@ public class EncurtadorService {
         repository.save(encurtador);
 
         return encurtador;
+    }
+
+    public List<Encurtador> findByIds(List<Long> ids){
+        return repository.findAllById(ids);
     }
 
 }
