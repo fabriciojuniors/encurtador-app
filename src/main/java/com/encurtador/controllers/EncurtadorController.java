@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -21,9 +22,14 @@ public class EncurtadorController {
         return service.save(dto);
     }
 
-    @GetMapping(path = "/{url}")
-    public Encurtador findByURL(@PathVariable("url") String url){
-        return service.findByEncodedURL(url);
+    @PostMapping(path = "/filter")
+    public Encurtador findByURL(@RequestBody EncurtadorDto dto){
+        return service.findByEncodedURL(dto.getUrl());
+    }
+
+    @GetMapping
+    public String teste(){
+        return "Ola";
     }
 
 }
